@@ -12,27 +12,48 @@ class StreamCreate extends React.Component {
   //       <input {...formProps.input} />
   //     );
   //   }
-  renderInput({ input, label, meta }) {
+
+  renderError({ error, touched }) {
+    // console.log(error);
+    // console.log(touched);
+    if (error && touched) {
+      //   console.log("error called");
+      return (
+        <div className="ui error message">
+          <div className="header">{error}</div>
+        </div>
+      );
+    }
+  }
+
+  renderInput = formProps => {
+    console.log(formProps);
+    const { input, label, meta } = formProps;
     // console.log(input);
+    // console.log(meta);
+    const className = `field ${meta.error && meta.touched ? "error" : ""}`;
     return (
-      <div className="field">
+      <div className={className}>
         <label>{label}</label>
-        <input {...input} />
-        <div>{meta.error}</div>
+        <input {...input} autoComplete="off" />
+        {this.renderError(meta)}
       </div>
     );
-  }
+  };
 
   onSubmit(formValues) {
     console.log(formValues);
   }
 
+  /**
+   * If the class error does not present in form tag, semantic-ui will hide any error message
+   */
   render() {
     console.log(this.props);
     return (
       <form
         onSubmit={this.props.handleSubmit(this.onSubmit)}
-        className="ui form"
+        className="ui form error"
       >
         <Field name="title" component={this.renderInput} label="Enter Title" />
         <Field
@@ -52,6 +73,7 @@ class StreamCreate extends React.Component {
  * errors.title <Field name="title" /> in this case
  */
 const validate = formValues => {
+  console.log(formValues);
   const errors = {};
 
   if (!formValues.title) {
