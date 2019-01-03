@@ -4,6 +4,7 @@ import { signIn, signOut } from "../actions";
 
 class GoogleAuth extends React.Component {
   componentDidMount() {
+    console.log("[GoogleAuth] componentDidMount");
     // for ref: https://developers.google.com/api-client-library/javascript/reference/referencedocs#authentication
     window.gapi.load("client:auth2", () => {
       window.gapi.client
@@ -24,7 +25,7 @@ class GoogleAuth extends React.Component {
   }
 
   onAuthChange = isSignedIn => {
-    // console.log("isSignedIn:", isSignedIn);
+    console.log("isSignedIn:", isSignedIn);
     if (isSignedIn) {
       this.props.signIn(this.auth.currentUser.get().getId());
     } else {
@@ -61,12 +62,13 @@ class GoogleAuth extends React.Component {
   }
 
   render() {
+    console.log("[GoogleAuth] render");
     return <div>{this.renderAuthButton()}</div>;
   }
 }
 
 const mapStateToProps = state => {
-  // console.log("[GoogleAuth] state:", state);
+  console.log("[GoogleAuth] state:", state);
   return { isSignedIn: state.auth.isSignedIn };
 };
 

@@ -22,8 +22,9 @@ export const signOut = () => {
   };
 };
 
-export const createStream = formValues => async dispatch => {
-  const response = await streams.post("/streams", formValues);
+export const createStream = formValues => async (dispatch, getState) => {
+  const { userId } = getState().auth;
+  const response = await streams.post("/streams", { ...formValues, userId });
   // When response object from axios has a lot of informaiton. But we only need the information(data object) which returns from the request.
   dispatch({ type: CREATE_STREAM, payload: response.data });
 };
