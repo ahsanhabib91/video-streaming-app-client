@@ -6,7 +6,7 @@ class StreamForm extends React.Component {
   //     console.log(formProps);
   //     return (
   //       //   <input
-  //       //     onChange={formProps.input.onChange}
+  //       //     onChange={formProps.input.onChange} // onChange handle function
   //       //     value={formProps.input.value}
   //       //   />
   //       <input {...formProps.input} />
@@ -28,7 +28,7 @@ class StreamForm extends React.Component {
 
   renderInput = formProps => {
     // console.log(formProps);
-    const { input, label, meta } = formProps;
+    const { input, label, meta } = formProps; // label is a custom provided props and label is not mentioned in the ReduxForm API
     // console.log(input);
     // console.log(meta);
     const className = `field ${meta.error && meta.touched ? "error" : ""}`;
@@ -69,6 +69,8 @@ class StreamForm extends React.Component {
 }
 
 /**
+ * Field -> Component which will setup the automatic functionality of Redux form
+ * component -> It is basically the main jsx component which will be passed to Field component and Field will render them
  *
  * key name of errors object and value of the name property of Field element must be same.
  * errors.title <Field name="title" /> in this case
